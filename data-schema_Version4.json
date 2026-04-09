@@ -1,0 +1,79 @@
+{
+  "session": {
+    "type": "object",
+    "properties": {
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "platform": { "type": "string", "example": "EngageLens v2.0" },
+          "exportDate": { "type": "string", "format": "date-time" },
+          "studentId": { "type": "string", "example": "STUDENT_001" },
+          "institution": { "type": "string", "example": "SBBU SBA" }
+        }
+      },
+      "session": {
+        "type": "object",
+        "properties": {
+          "sessionStart": { "type": "string", "format": "date-time" },
+          "sessionEnd": { "type": "string", "format": "date-time" },
+          "videoDuration": { "type": "number", "description": "Duration in seconds" },
+          "sessionDuration": { "type": "number", "description": "Recording duration in seconds" }
+        }
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "avgEngagement": { "type": "number", "minimum": 0, "maximum": 100 },
+          "totalScans": { "type": "number", "description": "Total analysis frames" },
+          "totalAlerts": { "type": "number" },
+          "focusBreaks": { "type": "number" }
+        }
+      },
+      "behavioralLog": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "timestamp": { "type": "string", "format": "date-time" },
+            "videoTime": { "type": "number", "description": "Video playback time in seconds" },
+            "headPose": {
+              "type": "object",
+              "properties": {
+                "yaw": { "type": "number", "minimum": -90, "maximum": 90, "description": "Left/Right angle in degrees" },
+                "pitch": { "type": "number", "minimum": -90, "maximum": 90, "description": "Up/Down angle in degrees" },
+                "roll": { "type": "number", "minimum": -90, "maximum": 90, "description": "Tilt angle in degrees" },
+                "direction": { "type": "string", "enum": ["looking_left", "looking_right", "looking_center"] },
+                "angleFromCenter": { "type": "number", "description": "Absolute head turn angle from center" }
+              },
+              "required": ["yaw", "pitch", "roll", "direction", "angleFromCenter"]
+            },
+            "facialExpressions": {
+              "type": "object",
+              "properties": {
+                "focused": { "type": "number", "minimum": 0, "maximum": 100 },
+                "interested": { "type": "number", "minimum": 0, "maximum": 100 },
+                "confused": { "type": "number", "minimum": 0, "maximum": 100 },
+                "bored": { "type": "number", "minimum": 0, "maximum": 100 },
+                "dominant": { "type": "string", "enum": ["focused", "interested", "confused", "bored"] },
+                "eyeOpenness": { "type": "number", "minimum": 0, "maximum": 100 },
+                "mouthOpenness": { "type": "number", "minimum": 0, "maximum": 100 }
+              },
+              "required": ["focused", "interested", "confused", "bored", "dominant"]
+            },
+            "engagementScore": { "type": "number", "minimum": 0, "maximum": 100, "description": "Composite engagement metric" },
+            "confidenceScore": { "type": "number", "minimum": 0, "maximum": 1 },
+            "alerts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["excessive_head_turn", "high_confusion", "low_engagement", "minimal_focus"]
+              }
+            }
+          },
+          "required": ["timestamp", "videoTime", "headPose", "facialExpressions", "engagementScore", "confidenceScore"]
+        }
+      }
+    },
+    "required": ["metadata", "session", "summary", "behavioralLog"]
+  }
+}

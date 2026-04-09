@@ -1,0 +1,36 @@
+{
+  "name": "engagelens-classroom-intelligence",
+  "version": "2.0.0",
+  "description": "Advanced AI-driven classroom engagement analytics platform with high-granularity facial and behavioral tracking for educational research.",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "http-server -p 8000 -c-1",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "classroom",
+    "engagement",
+    "facial-tracking",
+    "mediapipe",
+    "behavioral-analysis",
+    "education",
+    "research",
+    "ai",
+    "machine-learning"
+  ],
+  "author": "SBBU SBA Research Team",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.1.12"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhmdsirajkhanhi/engagelens-classroom-intelligence"
+  }
+}
